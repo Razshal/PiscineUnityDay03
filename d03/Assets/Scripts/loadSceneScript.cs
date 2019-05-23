@@ -17,6 +17,16 @@ public class loadSceneScript : MonoBehaviour {
         SceneManager.LoadScene("ex01");
 	}
 
+    public void LoadSpecificScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void LoadMainMenuOnClick()
     {
         SceneManager.LoadScene("ex00");

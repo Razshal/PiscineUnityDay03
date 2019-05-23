@@ -9,6 +9,7 @@ public class pauseScript : MonoBehaviour {
     public GameObject pauseCanvas;
     public GameObject confirmCanvas;
     public GameObject barCanvas;
+    public GameObject endGameCanvas;
 
     public void Resume() {
         pauseCanvas.SetActive(false);
@@ -40,6 +41,11 @@ public class pauseScript : MonoBehaviour {
             pauseCanvas.SetActive(true);
             gameManager.pause(true);
             barCanvas.SetActive(false);
+        }
+        if (gameManager.playerHp <= 0)
+        {
+            gameManager.pause(true);
+            endGameCanvas.SetActive(true);
         }
 	}
 }
