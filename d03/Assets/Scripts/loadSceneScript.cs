@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class loadSceneScript : MonoBehaviour {
+    public Texture2D texture;
+
+	private void Start()
+	{
+        if (texture)
+            Cursor.SetCursor(texture, Vector2.zero, CursorMode.Auto);
+	}
+
 	public void LoadSceneOnClick()
 	{
         SceneManager.LoadScene("ex01");
