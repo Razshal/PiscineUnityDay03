@@ -10,6 +10,7 @@ public class pauseScript : MonoBehaviour {
     public GameObject confirmCanvas;
     public GameObject barCanvas;
     public GameObject endGameCanvas;
+    GameObject[] spawners;
 
     public void Resume() {
         pauseCanvas.SetActive(false);
@@ -33,7 +34,23 @@ public class pauseScript : MonoBehaviour {
 
 	void Start () {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
+        spawners = GameObject.FindGameObjectsWithTag("spawner");
 	}
+
+    bool checkLastEnemy()
+    {
+        if (gameManager.gm.lastWave == true)
+        {
+            foreach (GameObject spawner in spawners)
+                if (spawner.GetComponent<ennemySpawner>().isEmpty == false || spawner.transform.childCount > 1)
+                    return false;
+            if (!GameObject.FindWithTag("bot") 
+                && !GameObject.FindWithTag("flybot") 
+                && !GameObject.FindWithTag("boss"))
+                return true;
+        }
+        return false;
+    }
 	
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape) && !pauseCanvas.activeSelf)
@@ -42,7 +59,7 @@ public class pauseScript : MonoBehaviour {
             gameManager.pause(true);
             barCanvas.SetActive(false);
         }
-        if (gameManager.playerHp <= 0)
+        if (gameManager.playerHp <= 0 || checkLastEnemy())
         {
             gameManager.pause(true);
             endGameCanvas.SetActive(true);

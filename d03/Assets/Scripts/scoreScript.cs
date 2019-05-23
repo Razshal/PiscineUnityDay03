@@ -19,14 +19,14 @@ public class scoreScript : MonoBehaviour {
         gameManager = GameObject.Find("GameManager")
                                 .GetComponent<gameManager>();
         
-        scoreValue = gameManager.playerEnergy + gameManager.playerHp;
-        if (scoreValue == 320)
+        scoreValue = gameManager.playerEnergy + gameManager.playerHp * 10;
+        if (scoreValue == 500)
             gradeLetter = 'A';
-        else if (scoreValue < 320 && scoreValue >= 300)
+        else if (scoreValue < 500 && scoreValue >= 400)
             gradeLetter = 'B';
-        else if (scoreValue < 300 && scoreValue >= 280)
+        else if (scoreValue < 400 && scoreValue >= 300)
             gradeLetter = 'C';
-        else if (scoreValue < 280 && scoreValue >= 200)
+        else if (scoreValue < 300 && scoreValue >= 200)
             gradeLetter = 'D';
         else if (scoreValue < 200 && scoreValue >= 100)
             gradeLetter = 'E';
