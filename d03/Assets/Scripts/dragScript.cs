@@ -2,24 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
     public GameObject tower;
+    private towerScript towerScript;
     private Vector3 originPos;
     private Ray ray;
 	private RaycastHit2D hit;
     private GameObject tile;
     private Vector3 point;
+    private gameManager gameManager;
+    public Text towerDesc;
 
-    public void OnBeginDrag(PointerEventData eventData)
+	void Start()
+	{
+        gameManager = GameObject.Find("GameManager")
+                                .GetComponent<gameManager>();
+        towerScript = tower.GetComponent<towerScript>();
+
+        // Tower stats
+        towerDesc.text = towerScript.damage + "\n" 
+            + towerScript.range + "\n" 
+            + towerScript.energy;
+	}
+
+	public void OnBeginDrag(PointerEventData eventData)
     {
         originPos = gameObject.transform.position;
     }
 
 	public void OnDrag(PointerEventData eventData)
     {
-        point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        gameObject.transform.position = new Vector3(point.x, point.y, 12);
+        if (gameManager.playerEnergy >= towerScript.energy)
+        {
+            point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            gameObject.transform.position = new Vector3(point.x, point.y, 12);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -34,7 +53,12 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 Instantiate(tower, tile.transform.position, tile.transform.rotation);
                 Destroy(hit.transform.gameObject);
+                gameManager.playerEnergy -= towerScript.energy;
             }
         }
     }
+
+	void Update()
+	{
+	}
 }
