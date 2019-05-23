@@ -27,6 +27,11 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             + towerScript.energy;
 	}
 
+    private bool EnoughEnergy()
+    {
+        return gameManager.playerEnergy >= towerScript.energy;
+    }
+
 	public void OnBeginDrag(PointerEventData eventData)
     {
         originPos = gameObject.transform.position;
@@ -34,7 +39,7 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
 	public void OnDrag(PointerEventData eventData)
     {
-        if (gameManager.playerEnergy >= towerScript.energy)
+        if (EnoughEnergy())
         {
             point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gameObject.transform.position = new Vector3(point.x, point.y, 12);
@@ -60,5 +65,9 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
 	void Update()
 	{
+        if (!EnoughEnergy())
+            gameObject.GetComponent<Image>().color = Color.red;
+        else
+            gameObject.GetComponent<Image>().color = Color.white;
 	}
 }
