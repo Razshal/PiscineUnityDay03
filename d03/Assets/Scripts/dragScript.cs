@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
     public GameObject tower;
     private Vector3 originPos;
-	private RaycastHit hit;
+    private Ray ray;
+	private RaycastHit2D hit;
     private GameObject tile;
     private Vector3 point;
 
@@ -25,8 +26,9 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
 		gameObject.transform.position = originPos;
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100)) {
-            Debug.Log("Hit!");
+        hit = Physics2D.Raycast(point, Vector2.zero);
+
+        if (Physics2D.Raycast(point, Vector2.zero)) {
             tile = hit.transform.gameObject;
             if (tile.tag == "empty")
             {
