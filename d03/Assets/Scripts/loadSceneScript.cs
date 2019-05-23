@@ -8,6 +8,12 @@ public class loadSceneScript : MonoBehaviour {
 	{
         SceneManager.LoadScene("ex01");
 	}
+
+    public void LoadMainMenuOnClick()
+    {
+        SceneManager.LoadScene("ex00");
+    }
+
     public void QuitSceneOnClick()
     {
         Application.Quit();
