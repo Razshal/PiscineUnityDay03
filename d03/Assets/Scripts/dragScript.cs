@@ -13,7 +13,10 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private GameObject tile;
     private Vector3 point;
     private gameManager gameManager;
-    public Text towerDesc;
+    public Text damage;
+    public Text price;
+    public Text fireRate;
+    public Text range;
 
 	void Start()
 	{
@@ -22,9 +25,10 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         towerScript = tower.GetComponent<towerScript>();
 
         // Tower stats
-        towerDesc.text = towerScript.damage + "\n" 
-            + towerScript.range + "\n" 
-            + towerScript.energy;
+        damage.text = "" + towerScript.damage;
+        price.text = "" + towerScript.energy;
+        fireRate.text = "" + towerScript.fireRate;
+        range.text = "" + towerScript.range;
 	}
 
     private bool EnoughEnergy()
@@ -65,9 +69,9 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
 	void Update()
 	{
-        if (!EnoughEnergy())
-            gameObject.GetComponent<Image>().color = Color.red;
-        else
+        if (EnoughEnergy())
             gameObject.GetComponent<Image>().color = Color.white;
+        else
+			gameObject.GetComponent<Image>().color = Color.red;
 	}
 }
