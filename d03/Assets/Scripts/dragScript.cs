@@ -8,7 +8,6 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public GameObject tower;
     private towerScript towerScript;
     private Vector3 originPos;
-    private Ray ray;
 	private RaycastHit2D hit;
     private GameObject tile;
     private Vector3 point;
@@ -52,11 +51,10 @@ public class dragScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-		gameObject.transform.position = originPos;
+        gameObject.transform.position = originPos;
 
-        hit = Physics2D.Raycast(point, Vector2.zero);
-
-        if (Physics2D.Raycast(point, Vector2.zero)) {
+        if (hit = Physics2D.Raycast(point, Vector2.zero))
+        {
             tile = hit.transform.gameObject;
             if (tile.tag == "empty")
             {
