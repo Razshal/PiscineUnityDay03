@@ -12,6 +12,7 @@ public class scoreScript : MonoBehaviour {
     private gameManager gameManager;
     private char gradeLetter;
     private int scoreValue;
+    private int bestScore;
 
     // Use this for initialization
     void Start()
@@ -19,18 +20,19 @@ public class scoreScript : MonoBehaviour {
         gameManager = GameObject.Find("GameManager")
                                 .GetComponent<gameManager>();
         
-        scoreValue = gameManager.playerEnergy + gameManager.playerHp * 10;
-        if (scoreValue == 500)
+        scoreValue = gameManager.playerEnergy / 100 + gameManager.playerHp * 10;
+        bestScore = gameManager.playerStartEnergy / 100 + gameManager.playerMaxHp * 10;
+        if (scoreValue >= bestScore)
             gradeLetter = 'A';
-        else if (scoreValue < 500 && scoreValue >= 400)
+        else if (scoreValue < bestScore && scoreValue >= bestScore / 2)
             gradeLetter = 'B';
-        else if (scoreValue < 400 && scoreValue >= 300)
+        else if (scoreValue < bestScore / 2 && scoreValue >= bestScore / 3)
             gradeLetter = 'C';
-        else if (scoreValue < 300 && scoreValue >= 200)
+        else if (scoreValue < bestScore / 3 && scoreValue >= bestScore / 4)
             gradeLetter = 'D';
-        else if (scoreValue < 200 && scoreValue >= 100)
+        else if (scoreValue < bestScore / 4 && scoreValue >= bestScore / 5)
             gradeLetter = 'E';
-        else if (scoreValue < 100)
+        else if (scoreValue < bestScore / 5)
             gradeLetter = 'F';
         score.text = "" + scoreValue;
         grade.text = "" + gradeLetter;

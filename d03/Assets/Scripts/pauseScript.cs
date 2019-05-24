@@ -63,6 +63,7 @@ public class pauseScript : MonoBehaviour {
         {
             gameManager.pause(true);
             endGameCanvas.SetActive(true);
+            barCanvas.SetActive(false);
         }
 	}
 }
